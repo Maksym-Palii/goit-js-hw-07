@@ -35,11 +35,20 @@ function onDivGalleryClick(evt) {
     return;
   }
   const imageOriginalLink = evt.target.dataset.source;
+
   const instance = basicLightbox.create(`
     <img src="${imageOriginalLink}">
 `);
 
   instance.show();
 
-  console.log(imageOriginalLink);
+  window.addEventListener("keydown", onEscKeyPress);
+
+  function onEscKeyPress(evt) {
+    if (evt.code !== "Escape") {
+      return;
+    }
+    instance.close();
+    window.removeEventListener("keydown", onEscKeyPress);
+  }
 }
